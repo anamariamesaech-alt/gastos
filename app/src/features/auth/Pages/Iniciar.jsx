@@ -24,7 +24,7 @@ export default function Iniciar() {
     setLoginError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/iniciar", {
+      const res = await fetch("https://gastos-backend-woad.vercel.app/api/auth/iniciar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

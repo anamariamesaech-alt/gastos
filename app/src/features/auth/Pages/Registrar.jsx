@@ -62,7 +62,7 @@ function Registrar() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/registro", {
+      const res = await fetch("https://gastos-backend-woad.vercel.app/api/auth/registro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
