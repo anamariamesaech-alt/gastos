@@ -3,12 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './features/layout/pages/Home';
 import ApiPage from './features/layout/pages/ApiPage';
 
-// 🔥 AUTH
+//  AUTH
 import Iniciar from './features/auth/Pages/Iniciar';
 import Registrar from './features/auth/Pages/Registrar';
 import OlvideContrasena from './features/auth/Pages/OlvideContrasena';
 
-// 🔥 DASHBOARD
+//  DASHBOARD
 import Dashboard from './features/dashboard/pages/Dashboard';
 
 const AppRoutes = () => {
