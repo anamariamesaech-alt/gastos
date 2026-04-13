@@ -9,7 +9,10 @@ function Dashboard() {
 
   const hoy = new Date();
   const [mesAnio, setMesAnio] = useState(`${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`);
-  const [gastos, setGastos] = useState([]);
+  const [gastos, setGastos] = useState(() => {
+    const guardados = localStorage.getItem('gastos');
+    return guardados ? JSON.parse(guardados) : [];
+  });
   const [form, setForm] = useState({ fecha: '', categoria: '', valor: '', descripcion: '' });
   const [errores, setErrores] = useState({});
   const [editandoId, setEditandoId] = useState(null);
@@ -33,13 +36,16 @@ function Dashboard() {
   const handleGuardar = () => {
     if (!validar()) return;
 
+    let nuevosGastos;
     if (editandoId) {
-      setGastos(gastos.map(g => g.id === editandoId ? { ...form, id: editandoId } : g));
+      nuevosGastos = gastos.map(g => g.id === editandoId ? { ...form, id: editandoId } : g);
       setEditandoId(null);
     } else {
-      setGastos([...gastos, { ...form, id: Date.now() }]);
+      nuevosGastos = [...gastos, { ...form, id: Date.now() }];
     }
 
+    setGastos(nuevosGastos);
+    localStorage.setItem('gastos', JSON.stringify(nuevosGastos));
     setForm({ fecha: '', categoria: '', valor: '', descripcion: '' });
     setErrores({});
   };
@@ -57,7 +63,9 @@ function Dashboard() {
   };
 
   const handleEliminar = (id) => {
-    setGastos(gastos.filter(g => g.id !== id));
+    const nuevosGastos = gastos.filter(g => g.id !== id);
+    setGastos(nuevosGastos);
+    localStorage.setItem('gastos', JSON.stringify(nuevosGastos));
   };
 
   const gastosFiltrados = gastos.filter(g => g.fecha.startsWith(mesAnio));
@@ -275,7 +283,6 @@ function Dashboard() {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );
